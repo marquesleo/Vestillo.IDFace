@@ -36,6 +36,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidade\Configuracao.cs" />
+    <Compile Include="Entidade\Server.cs" />
+    <Compile Include="Services\ConectaIDFace.cs" />
     <Compile Include="Entidade\BiometricImage.cs" />
     <Compile Include="Entidade\Biometric\BiometricResult.cs" />
     <Compile Include="Entidade\Device.cs" />
@@ -51,6 +55,8 @@
     <Compile Include="Entidade\Usuario.cs" />
     <Compile Include="Entidade\Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IOConfiguracao.cs" />
+    <Compile Include="Services\UsuarioIDFace.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

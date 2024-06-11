@@ -1,16 +1,18 @@
-﻿
-
-using System;
+﻿using System;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.ServiceModel.Description;
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Vestillo.IDFace.Entidade
 {
-    class Device
+    public class Device
     {
         public static string IPAddress;
         public static string ServerIp;
@@ -167,6 +169,107 @@ namespace Vestillo.IDFace.Entidade
         }
 
 
+        private long UnixTimeStamp ()
+        {
+            DateTime now = DateTime.UtcNow;
+
+            // Defina a data inicial do Unix Timestamp (1 de janeiro de 1970)
+            DateTime unixEpochStart = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            // Calcule a diferença entre a data atual e a data inicial
+            long unixTimestamp = (long)(now - unixEpochStart).TotalSeconds;
+            return unixTimestamp;
+        }
+        public string sendImagemUsuario(string uri, Usuario usuario, bool checkLogin  = true)
+        {
+            if (checkLogin)
+            {
+                Login();
+                uri += ".fcgi?session=" + session;
+            }
+            else
+                uri += ".fcgi";
+
+            uri += "&user_id=" + usuario.Id + "&timestamp=" + UnixTimeStamp() +"&match=0";
+
+            ServicePointManager.Expect100Continue = false;
+
+            try
+            {
+                byte[] fileData = null;
+                if (!string.IsNullOrEmpty(usuario.DiretorioImagem))
+                    // Load the image file into a byte array
+                    fileData = File.ReadAllBytes(usuario.DiretorioImagem);
+                else
+                    fileData = usuario.Imagem;
+
+                using (var client = new HttpClient())
+                {
+                    var url = "http://" + IPAddress + "/" + uri;
+                    var requestContent = new ByteArrayContent(fileData);
+                    requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+                    HttpResponseMessage response = client.PostAsync(url, requestContent).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Image uploaded successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error uploading image. Status code: " + response.StatusCode);
+                    }
+                }
+                return "";
+
+
+                /*var request = (HttpWebRequest)WebRequest.Create("http://" + IPAddress + "/" + uri);
+                request.ContentType = "application/octet-stream";
+                request.Method = "POST";
+              
+
+
+                using (var requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(fileData, 0, fileData.Length);
+                   
+                }
+             
+                var response = (HttpWebResponse)request.GetResponse();
+                using (var responseStream = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseData = responseStream.ReadToEnd();
+                    return responseData;
+
+                }*/
+            }
+            catch (WebException e)
+            {
+                using (WebResponse response = e.Response)
+                {
+                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+                    if (httpResponse == null)
+                    {
+                        throw new Exception("O servidor referente ao IP indicado não pôde ser encontrado");
+                    }
+                    Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                    using (Stream responseData = response.GetResponseStream())
+                    using (var reader = new StreamReader(responseData))
+                    {
+                        string text = reader.ReadToEnd();
+                        Console.WriteLine(text);
+                        throw new Exception(text);
+                    }
+                }
+            }
+        }
+
+        private static async Task UploadImageAsync(byte[] imageBytes, string session)
+        {
+            
+        }
+
+
         public string sendJson(string uri, string data, bool checkLogin = true)
         {
             if (checkLogin)
@@ -183,7 +286,7 @@ namespace Vestillo.IDFace.Entidade
                 request.ContentType = "application/json";
                 request.Method = "POST";
 
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                               using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
                     streamWriter.Write(data);
                 }
@@ -216,5 +319,28 @@ namespace Vestillo.IDFace.Entidade
                 }
             }
         }
+        public Dictionary<string, string>[] ListObjects(string data)
+        {
+            List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
+            string response = sendJson("load_objects", data);
+            int i = response.IndexOf("[") + 1;
+            response = response.Substring(i, response.Length - 1 - i).Replace("\"", "");
+            string[] listObjects = response.Split('}', '{');
+            foreach (string sObj in listObjects)
+            {
+                if (sObj.Length <= 1)
+                    continue;
+                Dictionary<string, string> obj = new Dictionary<string, string>();
+                string[] objFilds = sObj.Split(',');
+                foreach (string field in objFilds)
+                {
+                    string[] value = field.Split(':');
+                    obj.Add(value[0], value[1]);
+                }
+                list.Add(obj);
+            }
+            return list.ToArray();
+        }
+
     }
 }
