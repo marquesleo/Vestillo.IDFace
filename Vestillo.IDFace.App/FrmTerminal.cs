@@ -42,7 +42,7 @@ namespace Vestillo.IDFace.App
                 var IOConfiguracao = new Services.IOConfiguracao();
                 configuracao.Servidor = txtTerminal.Text;
 
-                IOConfiguracao.SalvarArquivo(configuracao);
+                IOConfiguracao.SalvarArquivo(configuracao.Servidor);
                 Close();
             }
             catch (Exception ex)

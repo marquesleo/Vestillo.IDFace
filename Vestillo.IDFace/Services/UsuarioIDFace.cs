@@ -37,7 +37,8 @@ namespace Vestillo.IDFace
                 if (!IsUsuarioExiste(usuario))
                 {
                     
-                    sendJson(usuario);
+                    sendUsuarioJson(usuario);
+                    sendGrupoDeUsuarioJson(usuario);
 
                     if (usuario.Imagem != null)
                     {
@@ -78,8 +79,9 @@ namespace Vestillo.IDFace
             return list;
         }
 
-        private void sendJson(Usuario usuario)
+        private void sendUsuarioJson(Usuario usuario)
         {
+
             try
             {
                 string strJson = "{" +
@@ -100,6 +102,31 @@ namespace Vestillo.IDFace
                 throw ex;
             }
           
+        }
+
+
+        private void sendGrupoDeUsuarioJson(Usuario usuario)
+        {
+
+            try
+            {
+                string strJson = "{" +
+       "\"object\" : \"user_groups\"," +
+       "\"values\" : [{" +
+               "\"user_id\" :" + usuario.Id + "," +
+               "\"group_id\" :" + "1" + // Removed the extra quotes around the 1
+             "}]" +
+       "}";
+
+                device.sendJson("create_objects", strJson);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
 
