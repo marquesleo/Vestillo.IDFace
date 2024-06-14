@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace Vestillo.IDFace.Entidade
 {
@@ -264,10 +265,66 @@ namespace Vestillo.IDFace.Entidade
             }
         }
 
-        private static async Task UploadImageAsync(byte[] imageBytes, string session)
+        public byte[] getImagemUsuario(string uri, string id, bool checkLogin = true)
         {
-            
+            byte[] responseBody = null;
+            if (checkLogin)
+            {
+                Login();
+                uri += ".fcgi?session=" + session;
+            }
+            else
+                uri += ".fcgi";
+
+            uri += "&user_id=" + id;
+
+            ServicePointManager.Expect100Continue = false;
+          
+            try
+            {
+
+                using (var client = new HttpClient())
+                {
+                    var url = "http://" + IPAddress + "/" + uri;
+
+                    var content = new StringContent(string.Empty);
+                    HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        responseBody = response.Content.ReadAsByteArrayAsync().Result;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error uploading image. Status code: " + response.StatusCode);
+                    }
+                }
+                return responseBody;
+            }
+            catch (WebException e)
+            {
+                using (WebResponse response = e.Response)
+                {
+                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+                    if (httpResponse == null)
+                    {
+                        throw new Exception("O servidor referente ao IP indicado não pôde ser encontrado");
+                    }
+                    Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                    using (Stream responseData = response.GetResponseStream())
+                    using (var reader = new StreamReader(responseData))
+                    {
+                        string text = reader.ReadToEnd();
+                        Console.WriteLine(text);
+                        throw new Exception(text);
+                    }
+                }
+            }
         }
+
+
+       
 
 
         public string sendJson(string uri, string data, bool checkLogin = true)
@@ -319,6 +376,8 @@ namespace Vestillo.IDFace.Entidade
                 }
             }
         }
+
+
         public Dictionary<string, string>[] ListObjects(string data)
         {
             List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();

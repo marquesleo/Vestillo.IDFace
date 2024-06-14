@@ -3,7 +3,7 @@
 
 namespace Vestillo.IDFace.Entidade
 {
-    class Util
+   public class Util
     {
 
         public string ipServer;

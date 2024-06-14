@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSalvar = new System.Windows.Forms.Button();
+            this.btnEncerrar = new System.Windows.Forms.Button();
+            this.btnIniciar = new System.Windows.Forms.Button();
+            this.cmbCameras = new System.Windows.Forms.ComboBox();
+            this.picImagemRecortada = new System.Windows.Forms.PictureBox();
+            this.picCamImagem = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCadastrar = new System.Windows.Forms.Button();
@@ -40,30 +46,13 @@
             this.cadastros = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastrarUsuárioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultas = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuariosCadastradosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logsDeAcessoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listarCartõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formasdeconexao = new System.Windows.Forms.ToolStripMenuItem();
             this.setarOnlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setarOfflineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.utilidades = new System.Windows.Forms.ToolStripMenuItem();
-            this.atualizarDataEHoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.abrirPortaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.catracaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.acessoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exemploDeConversãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nomeExibiçãoDoAcessoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.picCamImagem = new System.Windows.Forms.PictureBox();
-            this.picImagemRecortada = new System.Windows.Forms.PictureBox();
-            this.cmbCameras = new System.Windows.Forms.ComboBox();
-            this.btnIniciar = new System.Windows.Forms.Button();
-            this.btnEncerrar = new System.Windows.Forms.Button();
-            this.btnSalvar = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCamImagem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImagemRecortada)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCamImagem)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -90,6 +79,68 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cadastrar Usuário";
             // 
+            // btnSalvar
+            // 
+            this.btnSalvar.Location = new System.Drawing.Point(771, 514);
+            this.btnSalvar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(264, 46);
+            this.btnSalvar.TabIndex = 12;
+            this.btnSalvar.Text = "Salvar Captura";
+            this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
+            // btnEncerrar
+            // 
+            this.btnEncerrar.Location = new System.Drawing.Point(94, 609);
+            this.btnEncerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnEncerrar.Name = "btnEncerrar";
+            this.btnEncerrar.Size = new System.Drawing.Size(264, 46);
+            this.btnEncerrar.TabIndex = 11;
+            this.btnEncerrar.Text = "Encerrar Captura";
+            this.btnEncerrar.UseVisualStyleBackColor = true;
+            this.btnEncerrar.Click += new System.EventHandler(this.btnEncerrar_Click);
+            // 
+            // btnIniciar
+            // 
+            this.btnIniciar.Location = new System.Drawing.Point(94, 553);
+            this.btnIniciar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnIniciar.Name = "btnIniciar";
+            this.btnIniciar.Size = new System.Drawing.Size(264, 46);
+            this.btnIniciar.TabIndex = 10;
+            this.btnIniciar.Text = "Iniciar Captura";
+            this.btnIniciar.UseVisualStyleBackColor = true;
+            this.btnIniciar.Click += new System.EventHandler(this.btnIniciar_Click);
+            // 
+            // cmbCameras
+            // 
+            this.cmbCameras.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCameras.FormattingEnabled = true;
+            this.cmbCameras.Location = new System.Drawing.Point(94, 504);
+            this.cmbCameras.Name = "cmbCameras";
+            this.cmbCameras.Size = new System.Drawing.Size(264, 28);
+            this.cmbCameras.TabIndex = 9;
+            // 
+            // picImagemRecortada
+            // 
+            this.picImagemRecortada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImagemRecortada.Location = new System.Drawing.Point(646, 192);
+            this.picImagemRecortada.Name = "picImagemRecortada";
+            this.picImagemRecortada.Size = new System.Drawing.Size(447, 289);
+            this.picImagemRecortada.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picImagemRecortada.TabIndex = 8;
+            this.picImagemRecortada.TabStop = false;
+            // 
+            // picCamImagem
+            // 
+            this.picCamImagem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picCamImagem.Location = new System.Drawing.Point(33, 192);
+            this.picCamImagem.Name = "picCamImagem";
+            this.picCamImagem.Size = new System.Drawing.Size(447, 289);
+            this.picCamImagem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCamImagem.TabIndex = 7;
+            this.picCamImagem.TabStop = false;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -112,12 +163,12 @@
             // 
             // btnCadastrar
             // 
-            this.btnCadastrar.Location = new System.Drawing.Point(847, 29);
+            this.btnCadastrar.Location = new System.Drawing.Point(877, 664);
             this.btnCadastrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(246, 46);
             this.btnCadastrar.TabIndex = 0;
-            this.btnCadastrar.Text = "Cadastrar";
+            this.btnCadastrar.Text = "Cadastrar Usuário";
             this.btnCadastrar.UseVisualStyleBackColor = true;
             this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
             // 
@@ -161,9 +212,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cadastros,
-            this.consultas,
-            this.formasdeconexao,
-            this.utilidades});
+            this.formasdeconexao});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1167, 33);
@@ -184,6 +233,7 @@
             this.cadastrarUsuárioToolStripMenuItem.Name = "cadastrarUsuárioToolStripMenuItem";
             this.cadastrarUsuárioToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.cadastrarUsuárioToolStripMenuItem.Text = "Usuário";
+            this.cadastrarUsuárioToolStripMenuItem.Click += new System.EventHandler(this.cadastrarUsuárioToolStripMenuItem_Click);
             // 
             // terminalToolStripMenuItem
             // 
@@ -191,34 +241,6 @@
             this.terminalToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.terminalToolStripMenuItem.Text = "Terminal";
             this.terminalToolStripMenuItem.Click += new System.EventHandler(this.terminalToolStripMenuItem_Click);
-            // 
-            // consultas
-            // 
-            this.consultas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.usuariosCadastradosToolStripMenuItem,
-            this.logsDeAcessoToolStripMenuItem,
-            this.listarCartõesToolStripMenuItem});
-            this.consultas.Name = "consultas";
-            this.consultas.Size = new System.Drawing.Size(105, 29);
-            this.consultas.Text = "Consultas";
-            // 
-            // usuariosCadastradosToolStripMenuItem
-            // 
-            this.usuariosCadastradosToolStripMenuItem.Name = "usuariosCadastradosToolStripMenuItem";
-            this.usuariosCadastradosToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.usuariosCadastradosToolStripMenuItem.Text = "Listar Usuarios";
-            // 
-            // logsDeAcessoToolStripMenuItem
-            // 
-            this.logsDeAcessoToolStripMenuItem.Name = "logsDeAcessoToolStripMenuItem";
-            this.logsDeAcessoToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.logsDeAcessoToolStripMenuItem.Text = "Listar Logs";
-            // 
-            // listarCartõesToolStripMenuItem
-            // 
-            this.listarCartõesToolStripMenuItem.Name = "listarCartõesToolStripMenuItem";
-            this.listarCartõesToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.listarCartõesToolStripMenuItem.Text = "Listar Cartões";
             // 
             // formasdeconexao
             // 
@@ -234,122 +256,14 @@
             this.setarOnlineToolStripMenuItem.Name = "setarOnlineToolStripMenuItem";
             this.setarOnlineToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.setarOnlineToolStripMenuItem.Text = "Setar Online";
+            this.setarOnlineToolStripMenuItem.Click += new System.EventHandler(this.setarOnlineToolStripMenuItem_Click);
             // 
             // setarOfflineToolStripMenuItem
             // 
             this.setarOfflineToolStripMenuItem.Name = "setarOfflineToolStripMenuItem";
             this.setarOfflineToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.setarOfflineToolStripMenuItem.Text = "Setar Offline";
-            // 
-            // utilidades
-            // 
-            this.utilidades.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.atualizarDataEHoraToolStripMenuItem,
-            this.abrirPortaToolStripMenuItem,
-            this.exemploDeConversãoToolStripMenuItem,
-            this.nomeExibiçãoDoAcessoToolStripMenuItem});
-            this.utilidades.Name = "utilidades";
-            this.utilidades.Size = new System.Drawing.Size(106, 29);
-            this.utilidades.Text = "Utilidades";
-            // 
-            // atualizarDataEHoraToolStripMenuItem
-            // 
-            this.atualizarDataEHoraToolStripMenuItem.Name = "atualizarDataEHoraToolStripMenuItem";
-            this.atualizarDataEHoraToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
-            this.atualizarDataEHoraToolStripMenuItem.Text = "Atualizar Data e Hora";
-            // 
-            // abrirPortaToolStripMenuItem
-            // 
-            this.abrirPortaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.catracaToolStripMenuItem,
-            this.acessoToolStripMenuItem});
-            this.abrirPortaToolStripMenuItem.Name = "abrirPortaToolStripMenuItem";
-            this.abrirPortaToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
-            this.abrirPortaToolStripMenuItem.Text = "Liberar Acesso";
-            // 
-            // catracaToolStripMenuItem
-            // 
-            this.catracaToolStripMenuItem.Name = "catracaToolStripMenuItem";
-            this.catracaToolStripMenuItem.Size = new System.Drawing.Size(172, 34);
-            this.catracaToolStripMenuItem.Text = "Catraca";
-            // 
-            // acessoToolStripMenuItem
-            // 
-            this.acessoToolStripMenuItem.Name = "acessoToolStripMenuItem";
-            this.acessoToolStripMenuItem.Size = new System.Drawing.Size(172, 34);
-            this.acessoToolStripMenuItem.Text = "Acesso";
-            // 
-            // exemploDeConversãoToolStripMenuItem
-            // 
-            this.exemploDeConversãoToolStripMenuItem.Name = "exemploDeConversãoToolStripMenuItem";
-            this.exemploDeConversãoToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
-            this.exemploDeConversãoToolStripMenuItem.Text = "Conversão Wiegand";
-            // 
-            // nomeExibiçãoDoAcessoToolStripMenuItem
-            // 
-            this.nomeExibiçãoDoAcessoToolStripMenuItem.Name = "nomeExibiçãoDoAcessoToolStripMenuItem";
-            this.nomeExibiçãoDoAcessoToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
-            this.nomeExibiçãoDoAcessoToolStripMenuItem.Text = "Nome exibição do Acesso";
-            // 
-            // picCamImagem
-            // 
-            this.picCamImagem.Location = new System.Drawing.Point(33, 192);
-            this.picCamImagem.Name = "picCamImagem";
-            this.picCamImagem.Size = new System.Drawing.Size(447, 289);
-            this.picCamImagem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picCamImagem.TabIndex = 7;
-            this.picCamImagem.TabStop = false;
-            // 
-            // picImagemRecortada
-            // 
-            this.picImagemRecortada.Location = new System.Drawing.Point(646, 192);
-            this.picImagemRecortada.Name = "picImagemRecortada";
-            this.picImagemRecortada.Size = new System.Drawing.Size(447, 289);
-            this.picImagemRecortada.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picImagemRecortada.TabIndex = 8;
-            this.picImagemRecortada.TabStop = false;
-            // 
-            // cmbCameras
-            // 
-            this.cmbCameras.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCameras.FormattingEnabled = true;
-            this.cmbCameras.Location = new System.Drawing.Point(94, 504);
-            this.cmbCameras.Name = "cmbCameras";
-            this.cmbCameras.Size = new System.Drawing.Size(264, 28);
-            this.cmbCameras.TabIndex = 9;
-            // 
-            // btnIniciar
-            // 
-            this.btnIniciar.Location = new System.Drawing.Point(94, 553);
-            this.btnIniciar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnIniciar.Name = "btnIniciar";
-            this.btnIniciar.Size = new System.Drawing.Size(264, 46);
-            this.btnIniciar.TabIndex = 10;
-            this.btnIniciar.Text = "Iniciar Captura";
-            this.btnIniciar.UseVisualStyleBackColor = true;
-            this.btnIniciar.Click += new System.EventHandler(this.btnIniciar_Click);
-            // 
-            // btnEncerrar
-            // 
-            this.btnEncerrar.Location = new System.Drawing.Point(94, 609);
-            this.btnEncerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnEncerrar.Name = "btnEncerrar";
-            this.btnEncerrar.Size = new System.Drawing.Size(264, 46);
-            this.btnEncerrar.TabIndex = 11;
-            this.btnEncerrar.Text = "Encerrar Captura";
-            this.btnEncerrar.UseVisualStyleBackColor = true;
-            this.btnEncerrar.Click += new System.EventHandler(this.btnEncerrar_Click);
-            // 
-            // btnSalvar
-            // 
-            this.btnSalvar.Location = new System.Drawing.Point(771, 514);
-            this.btnSalvar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(264, 46);
-            this.btnSalvar.TabIndex = 12;
-            this.btnSalvar.Text = "Salvar Captura";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            this.setarOfflineToolStripMenuItem.Click += new System.EventHandler(this.setarOfflineToolStripMenuItem_Click);
             // 
             // FrmPrincipal
             // 
@@ -364,10 +278,10 @@
             this.Load += new System.EventHandler(this.FrmPrincipal_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImagemRecortada)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCamImagem)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCamImagem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picImagemRecortada)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -386,20 +300,9 @@
         private System.Windows.Forms.ToolStripMenuItem cadastros;
         private System.Windows.Forms.ToolStripMenuItem cadastrarUsuárioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem terminalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem consultas;
-        private System.Windows.Forms.ToolStripMenuItem usuariosCadastradosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem logsDeAcessoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem listarCartõesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem formasdeconexao;
         private System.Windows.Forms.ToolStripMenuItem setarOnlineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setarOfflineToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem utilidades;
-        private System.Windows.Forms.ToolStripMenuItem atualizarDataEHoraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem abrirPortaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem catracaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem acessoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exemploDeConversãoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nomeExibiçãoDoAcessoToolStripMenuItem;
         private System.Windows.Forms.PictureBox picImagemRecortada;
         private System.Windows.Forms.PictureBox picCamImagem;
         private System.Windows.Forms.ComboBox cmbCameras;

@@ -108,7 +108,9 @@ namespace Vestillo.IDFace.App
                     usuario.Imagem = ImageToByteArray(picImagemRecortada.Image);
                 }
 
-                usuarioIDFace.IncluirUsuario(usuario,"");
+                usuarioIDFace.IncluirUsuario(usuario);
+                MessageBox.Show("Usuário cadastrado!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimparTela();
             }
             catch (Exception ex)
             {
@@ -116,6 +118,16 @@ namespace Vestillo.IDFace.App
                 MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
+        }
+
+        private void LimparTela()
+        {
+            txtId.Clear();
+            txtMatricula.Clear();
+            txtUser.Clear();
+            picCamImagem.Image = null;
+            picImagemRecortada.Image = null;
+
         }
 
         private byte[] ImageToByteArray(Image imagem)
@@ -131,6 +143,41 @@ namespace Vestillo.IDFace.App
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
             IncluirUsuario();
+        }
+
+        private void cadastrarUsuárioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frm = new FrmCrudUsuario();
+            frm.Show();
+        }
+
+        private Device _device;
+        private Device device
+        {
+            get
+            {
+                if (_device == null)
+                {
+                    _device = new Device();
+                    var IOConfiguracao = new Services.IOConfiguracao();
+                    var conectIDFace = new ConectaIDFace();
+                    _device = conectIDFace.IniciarConexao(IOConfiguracao.GetIPTerminal());
+                    _device = new Device(new Util().GetIpTerminal(), new Util().GetIpServer());
+                }
+
+                return _device;
+            }
+        }
+
+        private void setarOnlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            device.ChangeType(true);
+        }
+
+        private void setarOfflineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            device.ChangeType(false);
         }
     }
 }

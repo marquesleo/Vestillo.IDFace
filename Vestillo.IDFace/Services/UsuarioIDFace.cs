@@ -8,7 +8,23 @@ namespace Vestillo.IDFace
 {
     public class UsuarioIDFace
     {
-        private Device device;
+        private Device _device;
+        private Device device
+        {
+            get
+            {
+                if (_device == null)
+                {
+                    _device = new Device();
+                    var IOConfiguracao = new IOConfiguracao();
+                    var conectIDFace = new ConectaIDFace();
+                    _device = conectIDFace.IniciarConexao(IOConfiguracao.GetIPTerminal());
+                    _device = new Device(new Util().GetIpTerminal(), new Util().GetIpServer());
+                }
+
+                return _device;
+            }
+        }
 
         private void ValidarUsuario(Usuario usuario)
         {
@@ -19,51 +35,104 @@ namespace Vestillo.IDFace
                 throw new Exception("Nome do usuário deve ser preenchido");
         }
 
-        public void IncluirUsuario(Usuario usuario, string servidor )
+
+        public void IncluirUsuario(Usuario usuario)
         {
             try
             {
-                ValidarUsuario(usuario);
-                var IOConfiguracao = new IOConfiguracao();
-                var conectIDFace = new ConectaIDFace();
-
-                if (!string.IsNullOrEmpty(servidor))
-                  IOConfiguracao.SalvarArquivo(servidor);
-            
-                device = conectIDFace.IniciarConexao(IOConfiguracao.GetIPTerminal());
-
-                 
-                device = new Device(new Util().GetIpTerminal(), new Util().GetIpServer());
-                if (!IsUsuarioExiste(usuario))
-                {
-                    
-                    sendUsuarioJson(usuario);
-                    sendGrupoDeUsuarioJson(usuario);
-
-                    if (usuario.Imagem != null)
-                    {
-                        device.sendImagemUsuario("user_set_image", usuario, true);
-                    }
-                }
+               IncluirUsuario(usuario, "");
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
+        }
+        public void IncluirUsuario(Usuario usuario, string servidor )
+        {
+            try
+            {
+                ValidarUsuario(usuario);
+                var IOConfiguracao = new IOConfiguracao();
+              
 
-          
+                if (!string.IsNullOrEmpty(servidor))
+                  IOConfiguracao.SalvarArquivo(servidor);
 
+                if (!IsUsuarioExiste(usuario))
+                {
+
+                    sendUsuarioJson(usuario);
+                    sendGrupoDeUsuarioJson(usuario);
+
+                    if (usuario.Imagem != null || !string.IsNullOrEmpty(usuario.DiretorioImagem))
+                    {
+
+                        device.sendImagemUsuario("user_set_image", usuario, true);
+                    }
+                }
+                else
+                    throw new Exception("Usuário já cadastrado!");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void AlterarUsuario(Usuario usuario)
+        {
+            AlterarUsuario(usuario, "");
+        }
+
+        public void AlterarUsuario(Usuario usuario, string servidor)
+        {
+            try
+            {
+                ValidarUsuario(usuario);
+                var IOConfiguracao = new IOConfiguracao();
+
+
+                if (!string.IsNullOrEmpty(servidor))
+                    IOConfiguracao.SalvarArquivo(servidor);
+
+                     AlterarUsuarioJson(usuario);
+                    
+
+                    if (usuario.Imagem != null || !string.IsNullOrEmpty(usuario.DiretorioImagem))
+                    {
+
+                        device.sendImagemUsuario("user_set_image", usuario, true);
+                    }
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+        public byte[] GetImagemUsuario(Usuario usuario)
+        {
+           var retorno = device.getImagemUsuario("user_get_image", usuario.Id, true);
+            return retorno;
         }
        
         private bool IsUsuarioExiste(Usuario usuario)
         {
             bool retorno = false;
-            Dictionary<string, string>[] list = RetornarUsuarios();
+            var list = RetornarUsuarios();
             foreach (var user in list)
             {
 
-                if (String.Equals(user["id"].ToString(), usuario.Id))
+                if (user.Id == usuario.Id)
+                {
+                    retorno = true;
+                    break;
+                }else if (user.Id == usuario.Id && usuario.Name.ToLower() == usuario.Name.ToLower())
                 {
                     retorno = true;
                     break;
@@ -71,7 +140,7 @@ namespace Vestillo.IDFace
             }
             return retorno;
         }
-        public Dictionary<string, string>[] RetornarUsuarios()
+        public Dictionary<string, string>[] RetornarTodosUsuarios()
         {
             // checar se já existe usuário registrado com o ID especificado
             Dictionary<string, string>[] list = device.ListObjects("{\"object\":\"users\"}");
@@ -79,6 +148,48 @@ namespace Vestillo.IDFace
             return list;
         }
 
+
+        public List<Usuario> RetornarUsuarios()
+        {
+            var retorno = new List<Usuario>();
+            Dictionary<string, string>[] list = device.ListObjects("{\"object\":\"users\"}");
+
+            if (list != null)
+            {
+
+                for (int i = 0; i < list.Length; i++) {
+
+                    var reg = list[i];
+                    var usuario = new Usuario();
+                    
+                        if (reg.ContainsKey("id"))
+                        {
+                            var id = "";
+                            reg.TryGetValue("id", out id);
+                            usuario.Id = id;
+
+                        }
+                        if (reg.ContainsKey("name"))
+                        {
+                            var name = "";
+                            reg.TryGetValue("name", out name);
+                            usuario.Name = name;
+                        }
+                        if (reg.ContainsKey("registration"))
+                        {
+                            var registration = "";
+                            reg.TryGetValue("registration", out registration);
+                            usuario.Matricula = registration;
+                        }
+                        retorno.Add(usuario);
+                          
+                
+                }
+               
+            
+            }
+            return retorno;
+        }
         private void sendUsuarioJson(Usuario usuario)
         {
 
@@ -104,21 +215,29 @@ namespace Vestillo.IDFace
           
         }
 
-
-        private void sendGrupoDeUsuarioJson(Usuario usuario)
+        private void AlterarUsuarioJson(Usuario usuario)
         {
 
             try
             {
-                string strJson = "{" +
-       "\"object\" : \"user_groups\"," +
-       "\"values\" : [{" +
-               "\"user_id\" :" + usuario.Id + "," +
-               "\"group_id\" :" + "1" + // Removed the extra quotes around the 1
-             "}]" +
-       "}";
+                string jsonToSend = "{" +
+                      "\"object\": \"users\"," +
+                      "\"values\": {" +
+                      "\"name\": \"" + usuario.Name + "\"," +
+                      "\"registration\": \"" + usuario.Matricula + "\"" +
+                    
+                      "}," +
+                      "\"where\": {" +
+                      "\"users\": {" +
+                        "\"id\" :" + usuario.Id + 
+                      "}" +
+                      "}" +
+                      "}";
 
-                device.sendJson("create_objects", strJson);
+
+
+
+                device.sendJson("modify_objects", jsonToSend);
 
             }
             catch (Exception ex)
@@ -126,6 +245,32 @@ namespace Vestillo.IDFace
 
                 throw ex;
             }
+
+        }
+
+
+        private void sendGrupoDeUsuarioJson(Usuario usuario)
+        {
+           
+                try
+                {
+                    string strJson = "{" +
+           "\"object\" : \"user_groups\"," +
+           "\"values\" : [{" +
+                   "\"user_id\" :" + usuario.Id + "," +
+                   "\"group_id\" :" + "1" + // Removed the extra quotes around the 1
+                 "}]" +
+           "}";
+
+                    device.sendJson("create_objects", strJson);
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            
 
         }
 
