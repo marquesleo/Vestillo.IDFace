@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Net;
 using Vestillo.IDFace.Entidade;
+using System.Web;
 
 namespace Vestillo.IDFace
 {
@@ -18,7 +19,7 @@ namespace Vestillo.IDFace
             {
                 foreach (var ip in Dns.GetHostAddresses(Dns.GetHostName()))
                 {
-                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    if (ip.AddressFamily == AddressFamily.InterNetwork && string.IsNullOrEmpty(ip_server))
                     {
                         ip_server = ip.ToString() + ":8000";
                         

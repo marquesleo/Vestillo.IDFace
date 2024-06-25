@@ -54,7 +54,7 @@ namespace Vestillo.IDFace.Entidade
                                 "\"values\" : [{" +
                                         "\"id\" : -1," +
                                         "\"name\" : \"Servidor\"," +
-                                        "\"ip\" : \"" + ServerIp + "\"," +
+                                        "\"ip\" : \"" + ServerIp + @"/api" + "\"," +
                                         "\"public_key\" : \"anA=\"" +
 
                                     "}]" +
@@ -75,7 +75,7 @@ namespace Vestillo.IDFace.Entidade
                         string jsonToSend = "";
                         jsonToSend += "{";
                         jsonToSend += "\"object\":\"devices\",";
-                        jsonToSend += "\"values\":{\"name\":\"Servidor\",\"ip\":\"" + ServerIp + "\",\"public_key\":\"anA=\"},";
+                        jsonToSend += "\"values\":{\"name\":\"Servidor\",\"ip\":\"" + ServerIp + @"/api" + "\",\"public_key\":\"anA=\"},";
                         jsonToSend += "\"where\":{\"devices\":{\"id\":-1}}";
                         jsonToSend += "}";
 
@@ -109,7 +109,7 @@ namespace Vestillo.IDFace.Entidade
                 binding.MaxBufferSize = 2147483647;
                 binding.MaxBufferPoolSize = 2147483647;
 
-                WebServiceHost host = new WebServiceHost(typeof(Server), new Uri("http://localhost:8000/"));
+                WebServiceHost host = new WebServiceHost(typeof(Server), new Uri("http://"+ ServerIp +"/api"));
                 ServiceEndpoint ep = host.AddServiceEndpoint(typeof(IServer), binding, "");
                 ServiceDebugBehavior sdb = host.Description.Behaviors.Find<ServiceDebugBehavior>();
                 sdb.HttpHelpPageEnabled = false;
