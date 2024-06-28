@@ -179,5 +179,11 @@ namespace Vestillo.IDFace.App
             
             device.ChangeType(false);
         }
+
+        private void liberarAcessoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var usuarioIDFace = new UsuarioIDFace();
+            usuarioIDFace.LiberarAcesso();
+        }
     }
 }

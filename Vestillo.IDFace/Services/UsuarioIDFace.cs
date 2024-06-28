@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Vestillo.IDFace.Entidade;
@@ -40,7 +41,7 @@ namespace Vestillo.IDFace
         {
             try
             {
-               IncluirUsuario(usuario, "");
+                IncluirUsuario(usuario, "");
             }
             catch (Exception ex)
             {
@@ -48,16 +49,66 @@ namespace Vestillo.IDFace
                 throw ex;
             }
         }
-        public void IncluirUsuario(Usuario usuario, string servidor )
+
+
+        public class Action
+        {
+            [JsonProperty("action")]
+            public string ActionName { get; set; }
+
+            [JsonProperty("parameters")]
+            public string Parameters { get; set; }
+        }
+
+        public class Data
+        {
+            [JsonProperty("actions")]
+            public List<Action> Actions { get; set; }
+        }
+
+
+
+        public void LiberarAcesso()
+        {
+            try
+            {
+                var data = new Data
+                {
+                    Actions = new List<Action>
+                {
+                    new Action
+                {
+                    ActionName = "sec_box",
+                    Parameters = "id=65793, reason=3"
+                }
+                     }
+                };
+
+                // Serializar o objeto em uma string JSON
+                string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
+
+                device.sendJson("execute_actions", jsonString);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+
+        public void IncluirUsuario(Usuario usuario, string servidor)
         {
             try
             {
                 ValidarUsuario(usuario);
                 var IOConfiguracao = new IOConfiguracao();
-              
+
 
                 if (!string.IsNullOrEmpty(servidor))
-                  IOConfiguracao.SalvarArquivo(servidor);
+                    IOConfiguracao.SalvarArquivo(servidor);
 
                 if (!IsUsuarioExiste(usuario))
                 {
@@ -97,15 +148,15 @@ namespace Vestillo.IDFace
                 if (!string.IsNullOrEmpty(servidor))
                     IOConfiguracao.SalvarArquivo(servidor);
 
-                     AlterarUsuarioJson(usuario);
-                    
+                AlterarUsuarioJson(usuario);
 
-                    if (usuario.Imagem != null || !string.IsNullOrEmpty(usuario.DiretorioImagem))
-                    {
 
-                        device.sendImagemUsuario("user_set_image", usuario, true);
-                    }
-                
+                if (usuario.Imagem != null || !string.IsNullOrEmpty(usuario.DiretorioImagem))
+                {
+
+                    device.sendImagemUsuario("user_set_image", usuario, true);
+                }
+
             }
             catch (Exception ex)
             {
@@ -117,10 +168,10 @@ namespace Vestillo.IDFace
 
         public byte[] GetImagemUsuario(Usuario usuario)
         {
-           var retorno = device.getImagemUsuario("user_get_image", usuario.Id, true);
+            var retorno = device.getImagemUsuario("user_get_image", usuario.Id, true);
             return retorno;
         }
-       
+
         private bool IsUsuarioExiste(Usuario usuario)
         {
             bool retorno = false;
@@ -132,7 +183,8 @@ namespace Vestillo.IDFace
                 {
                     retorno = true;
                     break;
-                }else if (user.Id == usuario.Id && usuario.Name.ToLower() == usuario.Name.ToLower())
+                }
+                else if (user.Id == usuario.Id && usuario.Name.ToLower() == usuario.Name.ToLower())
                 {
                     retorno = true;
                     break;
@@ -144,7 +196,7 @@ namespace Vestillo.IDFace
         {
             // checar se já existe usuário registrado com o ID especificado
             Dictionary<string, string>[] list = device.ListObjects("{\"object\":\"users\"}");
-                      
+
             return list;
         }
 
@@ -157,36 +209,37 @@ namespace Vestillo.IDFace
             if (list != null)
             {
 
-                for (int i = 0; i < list.Length; i++) {
+                for (int i = 0; i < list.Length; i++)
+                {
 
                     var reg = list[i];
                     var usuario = new Usuario();
-                    
-                        if (reg.ContainsKey("id"))
-                        {
-                            var id = "";
-                            reg.TryGetValue("id", out id);
-                            usuario.Id = id;
 
-                        }
-                        if (reg.ContainsKey("name"))
-                        {
-                            var name = "";
-                            reg.TryGetValue("name", out name);
-                            usuario.Name = name;
-                        }
-                        if (reg.ContainsKey("registration"))
-                        {
-                            var registration = "";
-                            reg.TryGetValue("registration", out registration);
-                            usuario.Matricula = registration;
-                        }
-                        retorno.Add(usuario);
-                          
-                
+                    if (reg.ContainsKey("id"))
+                    {
+                        var id = "";
+                        reg.TryGetValue("id", out id);
+                        usuario.Id = id;
+
+                    }
+                    if (reg.ContainsKey("name"))
+                    {
+                        var name = "";
+                        reg.TryGetValue("name", out name);
+                        usuario.Name = name;
+                    }
+                    if (reg.ContainsKey("registration"))
+                    {
+                        var registration = "";
+                        reg.TryGetValue("registration", out registration);
+                        usuario.Matricula = registration;
+                    }
+                    retorno.Add(usuario);
+
+
                 }
-               
-            
+
+
             }
             return retorno;
         }
@@ -212,7 +265,7 @@ namespace Vestillo.IDFace
 
                 throw ex;
             }
-          
+
         }
 
         private void AlterarUsuarioJson(Usuario usuario)
@@ -225,11 +278,11 @@ namespace Vestillo.IDFace
                       "\"values\": {" +
                       "\"name\": \"" + usuario.Name + "\"," +
                       "\"registration\": \"" + usuario.Matricula + "\"" +
-                    
+
                       "}," +
                       "\"where\": {" +
                       "\"users\": {" +
-                        "\"id\" :" + usuario.Id + 
+                        "\"id\" :" + usuario.Id +
                       "}" +
                       "}" +
                       "}";
@@ -251,26 +304,26 @@ namespace Vestillo.IDFace
 
         private void sendGrupoDeUsuarioJson(Usuario usuario)
         {
-           
-                try
-                {
-                    string strJson = "{" +
-           "\"object\" : \"user_groups\"," +
-           "\"values\" : [{" +
-                   "\"user_id\" :" + usuario.Id + "," +
-                   "\"group_id\" :" + "1" + // Removed the extra quotes around the 1
-                 "}]" +
-           "}";
 
-                    device.sendJson("create_objects", strJson);
+            try
+            {
+                string strJson = "{" +
+       "\"object\" : \"user_groups\"," +
+       "\"values\" : [{" +
+               "\"user_id\" :" + usuario.Id + "," +
+               "\"group_id\" :" + "1" + // Removed the extra quotes around the 1
+             "}]" +
+       "}";
 
-                }
-                catch (Exception ex)
-                {
+                device.sendJson("create_objects", strJson);
 
-                    throw ex;
-                }
-            
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
 
         }
 
