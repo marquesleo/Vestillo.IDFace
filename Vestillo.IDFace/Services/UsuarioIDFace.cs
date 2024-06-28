@@ -167,6 +167,31 @@ namespace Vestillo.IDFace
             }
         }
 
+        public void ExcluirUsuario(Usuario usuario)
+        {
+            try
+            {
+                string jsonString = @"
+            {
+                    ""object"": ""users"",
+                    ""where"": [
+                        {
+                             ""object"": ""users"",
+                            ""field"": ""id"",
+                             ""operator"": ""="",
+                            ""value"": " + usuario.Id + " }]} ";
+
+                device.sendJson("destroy_objects", jsonString);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
+
+        }
+
 
         public byte[] GetImagemUsuario(Usuario usuario)
         {

@@ -58,10 +58,12 @@
             // 
             // dgrdUsuario
             // 
-            this.dgrdUsuario.Location = new System.Drawing.Point(24, 28);
+            this.dgrdUsuario.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgrdUsuario.Location = new System.Drawing.Point(16, 18);
             this.dgrdUsuario.MainView = this.grdusuario;
+            this.dgrdUsuario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgrdUsuario.Name = "dgrdUsuario";
-            this.dgrdUsuario.Size = new System.Drawing.Size(516, 569);
+            this.dgrdUsuario.Size = new System.Drawing.Size(344, 370);
             this.dgrdUsuario.TabIndex = 0;
             this.dgrdUsuario.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdusuario});
@@ -72,47 +74,45 @@
             this.colId,
             this.colName,
             this.colMatricula});
+            this.grdusuario.DetailHeight = 227;
             this.grdusuario.GridControl = this.dgrdUsuario;
             this.grdusuario.Name = "grdusuario";
             this.grdusuario.OptionsBehavior.Editable = false;
+            this.grdusuario.OptionsEditForm.PopupEditFormWidth = 533;
+            this.grdusuario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grdusuario_KeyDown);
             this.grdusuario.DoubleClick += new System.EventHandler(this.grdusuario_DoubleClick);
             // 
             // colId
             // 
             this.colId.Caption = "Id";
             this.colId.FieldName = "Id";
-            this.colId.MinWidth = 30;
             this.colId.Name = "colId";
             this.colId.Visible = true;
             this.colId.VisibleIndex = 0;
-            this.colId.Width = 112;
             // 
             // colName
             // 
             this.colName.Caption = "Nome";
             this.colName.FieldName = "Name";
-            this.colName.MinWidth = 30;
             this.colName.Name = "colName";
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
-            this.colName.Width = 112;
             // 
             // colMatricula
             // 
             this.colMatricula.Caption = "Matricula";
             this.colMatricula.FieldName = "Matricula";
-            this.colMatricula.MinWidth = 30;
             this.colMatricula.Name = "colMatricula";
             this.colMatricula.Visible = true;
             this.colMatricula.VisibleIndex = 2;
-            this.colMatricula.Width = 112;
             // 
             // picCamImagem
             // 
             this.picCamImagem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picCamImagem.Location = new System.Drawing.Point(557, 151);
+            this.picCamImagem.Location = new System.Drawing.Point(371, 98);
+            this.picCamImagem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picCamImagem.Name = "picCamImagem";
-            this.picCamImagem.Size = new System.Drawing.Size(407, 289);
+            this.picCamImagem.Size = new System.Drawing.Size(272, 189);
             this.picCamImagem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCamImagem.TabIndex = 14;
             this.picCamImagem.TabStop = false;
@@ -120,64 +120,57 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(552, 68);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(368, 44);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 20);
+            this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 12;
             this.label2.Text = "Nome do usuário:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(553, 108);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(369, 70);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 20);
+            this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 13;
             this.label3.Text = "Matricula:";
             // 
             // txtId
             // 
             this.txtId.Enabled = false;
-            this.txtId.Location = new System.Drawing.Point(765, 28);
-            this.txtId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtId.Location = new System.Drawing.Point(510, 18);
             this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(198, 26);
+            this.txtId.Size = new System.Drawing.Size(133, 20);
             this.txtId.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(553, 28);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(369, 18);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 20);
+            this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 11;
             this.label4.Text = "iD do Usuário";
             // 
             // txtUser
             // 
-            this.txtUser.Location = new System.Drawing.Point(765, 68);
-            this.txtUser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtUser.Location = new System.Drawing.Point(510, 44);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(198, 26);
+            this.txtUser.Size = new System.Drawing.Size(133, 20);
             this.txtUser.TabIndex = 9;
             // 
             // txtMatricula
             // 
-            this.txtMatricula.Location = new System.Drawing.Point(765, 108);
-            this.txtMatricula.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtMatricula.Location = new System.Drawing.Point(510, 70);
             this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.Size = new System.Drawing.Size(198, 26);
+            this.txtMatricula.Size = new System.Drawing.Size(133, 20);
             this.txtMatricula.TabIndex = 10;
             // 
             // btnCadastrar
             // 
-            this.btnCadastrar.Location = new System.Drawing.Point(47, 824);
-            this.btnCadastrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCadastrar.Location = new System.Drawing.Point(31, 536);
             this.btnCadastrar.Name = "btnCadastrar";
-            this.btnCadastrar.Size = new System.Drawing.Size(246, 46);
+            this.btnCadastrar.Size = new System.Drawing.Size(164, 30);
             this.btnCadastrar.TabIndex = 15;
             this.btnCadastrar.Text = "Gravar";
             this.btnCadastrar.UseVisualStyleBackColor = true;
@@ -187,9 +180,10 @@
             // 
             this.chkAlteraImagem.AutoSize = true;
             this.chkAlteraImagem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkAlteraImagem.Location = new System.Drawing.Point(557, 446);
+            this.chkAlteraImagem.Location = new System.Drawing.Point(371, 290);
+            this.chkAlteraImagem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkAlteraImagem.Name = "chkAlteraImagem";
-            this.chkAlteraImagem.Size = new System.Drawing.Size(351, 36);
+            this.chkAlteraImagem.Size = new System.Drawing.Size(234, 28);
             this.chkAlteraImagem.TabIndex = 16;
             this.chkAlteraImagem.Text = "Deseja Alterar Imagem ?";
             this.chkAlteraImagem.UseVisualStyleBackColor = true;
@@ -198,10 +192,9 @@
             // 
             // btnEncerrar
             // 
-            this.btnEncerrar.Location = new System.Drawing.Point(483, 137);
-            this.btnEncerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnEncerrar.Location = new System.Drawing.Point(322, 89);
             this.btnEncerrar.Name = "btnEncerrar";
-            this.btnEncerrar.Size = new System.Drawing.Size(264, 46);
+            this.btnEncerrar.Size = new System.Drawing.Size(176, 30);
             this.btnEncerrar.TabIndex = 20;
             this.btnEncerrar.Text = "Encerrar Captura";
             this.btnEncerrar.UseVisualStyleBackColor = true;
@@ -209,10 +202,9 @@
             // 
             // btnIniciar
             // 
-            this.btnIniciar.Location = new System.Drawing.Point(483, 81);
-            this.btnIniciar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnIniciar.Location = new System.Drawing.Point(322, 53);
             this.btnIniciar.Name = "btnIniciar";
-            this.btnIniciar.Size = new System.Drawing.Size(264, 46);
+            this.btnIniciar.Size = new System.Drawing.Size(176, 30);
             this.btnIniciar.TabIndex = 19;
             this.btnIniciar.Text = "Iniciar Captura";
             this.btnIniciar.UseVisualStyleBackColor = true;
@@ -222,17 +214,19 @@
             // 
             this.cmbCameras.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCameras.FormattingEnabled = true;
-            this.cmbCameras.Location = new System.Drawing.Point(483, 46);
+            this.cmbCameras.Location = new System.Drawing.Point(322, 30);
+            this.cmbCameras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmbCameras.Name = "cmbCameras";
-            this.cmbCameras.Size = new System.Drawing.Size(264, 27);
+            this.cmbCameras.Size = new System.Drawing.Size(177, 21);
             this.cmbCameras.TabIndex = 18;
             // 
             // picImagemRecortada
             // 
             this.picImagemRecortada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImagemRecortada.Location = new System.Drawing.Point(20, 46);
+            this.picImagemRecortada.Location = new System.Drawing.Point(13, 30);
+            this.picImagemRecortada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picImagemRecortada.Name = "picImagemRecortada";
-            this.picImagemRecortada.Size = new System.Drawing.Size(447, 289);
+            this.picImagemRecortada.Size = new System.Drawing.Size(299, 189);
             this.picImagemRecortada.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picImagemRecortada.TabIndex = 17;
             this.picImagemRecortada.TabStop = false;
@@ -244,19 +238,19 @@
             this.grpCamera.Controls.Add(this.btnEncerrar);
             this.grpCamera.Controls.Add(this.btnIniciar);
             this.grpCamera.Controls.Add(this.cmbCameras);
-            this.grpCamera.Location = new System.Drawing.Point(557, 507);
+            this.grpCamera.Location = new System.Drawing.Point(371, 330);
+            this.grpCamera.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.grpCamera.Name = "grpCamera";
-            this.grpCamera.Size = new System.Drawing.Size(765, 363);
+            this.grpCamera.Size = new System.Drawing.Size(510, 236);
             this.grpCamera.TabIndex = 21;
             this.grpCamera.Text = "Captura";
             this.grpCamera.Visible = false;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(483, 193);
-            this.btnSalvar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSalvar.Location = new System.Drawing.Point(322, 125);
             this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(264, 46);
+            this.btnSalvar.Size = new System.Drawing.Size(176, 30);
             this.btnSalvar.TabIndex = 21;
             this.btnSalvar.Text = "Salvar Captura";
             this.btnSalvar.UseVisualStyleBackColor = true;
@@ -264,9 +258,9 @@
             // 
             // FrmCrudUsuario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1346, 890);
+            this.ClientSize = new System.Drawing.Size(897, 578);
             this.Controls.Add(this.grpCamera);
             this.Controls.Add(this.chkAlteraImagem);
             this.Controls.Add(this.btnCadastrar);
@@ -278,6 +272,7 @@
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.txtMatricula);
             this.Controls.Add(this.dgrdUsuario);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmCrudUsuario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CRUD Usuário";

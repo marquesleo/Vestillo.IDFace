@@ -197,5 +197,36 @@ namespace Vestillo.IDFace.App
         {
             AlterarUsuario();
         }
+
+        private void Excluir()
+        {
+            try
+            {
+                var lst = (List<Usuario>)dgrdUsuario.DataSource;
+
+                if (lst != null && lst.Any())
+                {
+                    var usuarioIDFace = new UsuarioIDFace();
+                    var usuario = lst[grdusuario.GetDataSourceRowIndex(grdusuario.FocusedRowHandle)];
+
+                    usuarioIDFace.ExcluirUsuario(usuario);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
+        }
+
+        private void grdusuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && grdusuario.SelectedRowsCount > 0)
+            {
+                Excluir();
+            }
+
+        }
     }
 }
