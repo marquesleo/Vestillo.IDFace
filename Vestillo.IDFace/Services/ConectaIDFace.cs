@@ -40,9 +40,31 @@ namespace Vestillo.IDFace
            
         }
 
+        public Device IniciarConexao(string ip_terminal,string ipAPI)
+        {
+            Device device = null;
+
+            try
+            {
+                ipAPI = ipAPI.ToString() + ":8000";
+
+                device = new Device(ip_terminal, ipAPI);
+                bool success = true;
+                var retorno = device.CadastrarNoSevidor(out success);
+                return device;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
 
 
-        
+        }
+
+
+
+
 
 
     }

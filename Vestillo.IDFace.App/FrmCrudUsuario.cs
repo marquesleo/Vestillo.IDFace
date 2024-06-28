@@ -156,7 +156,7 @@ namespace Vestillo.IDFace.App
                     usuario.Imagem = ImageToByteArray(picCamImagem.Image);
                 }
 
-                usuarioIDFace.AlterarUsuario(usuario, "");
+                usuarioIDFace.AlterarUsuario(usuario, "", "");
                 MessageBox.Show("Usuário alterado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidade\Configuracao.cs" />
+    <Compile Include="Entidade\Libera.cs" />
     <Compile Include="Entidade\Server.cs" />
     <Compile Include="Services\ConectaIDFace.cs" />
     <Compile Include="Entidade\BiometricImage.cs" />

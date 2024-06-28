@@ -182,8 +182,17 @@ namespace Vestillo.IDFace.App
 
         private void liberarAcessoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var usuarioIDFace = new UsuarioIDFace();
-            usuarioIDFace.LiberarAcesso();
+            try
+            {
+                var usuarioIDFace = new UsuarioIDFace();
+                usuarioIDFace.LiberarAcesso();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+           
         }
     }
 }

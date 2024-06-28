@@ -6,27 +6,59 @@ namespace Vestillo.IDFace.Services
 {
     public class IOConfiguracao
     {
+        private Device _device;
+        private Device device
+        {
+            get
+            {
+                if (_device == null)
+                {
+                    _device = new Device();
+                    var IOConfiguracao = new IOConfiguracao();
+                    var conectIDFace = new ConectaIDFace();
+                    _device = conectIDFace.IniciarConexao(IOConfiguracao.GetIPTerminal());
+                    _device = new Device(new Util().GetIpTerminal(), new Util().GetIpServer());
+                }
+
+                return _device;
+            }
+        }
+
 
         private const string filePath = "configuracao.xml";
         private void SalvarArquivo(Configuracao configuracao)
         {
-
-            if (!File.Exists(filePath))
+            try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Configuracao));
-                using (StreamWriter writer = new StreamWriter(filePath))
+
+                if (!File.Exists(filePath))
                 {
-                    serializer.Serialize(writer, configuracao);
+                    XmlSerializer serializer = new XmlSerializer(typeof(Configuracao));
+                    using (StreamWriter writer = new StreamWriter(filePath))
+                    {
+                        serializer.Serialize(writer, configuracao);
+                    }
                 }
+
+                var conectIDFace = new ConectaIDFace();
+               var _device = conectIDFace.IniciarConexao(configuracao.Servidor,configuracao.ComputadorAPI);
+                _device = new Device(new Util().GetIpTerminal(), new Util().GetIpServer());
             }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+          
         }
 
-        public void SalvarArquivo(string  servidor)
+        public void SalvarArquivo(string  servidor, string apiServidor)
         {
 
-            var configuracao = new Configuracao
+            var configuracao = new Configuracao 
             {
-                Servidor = servidor
+                Servidor = servidor,
+                 ComputadorAPI =apiServidor
             };
 
             SalvarArquivo(configuracao);

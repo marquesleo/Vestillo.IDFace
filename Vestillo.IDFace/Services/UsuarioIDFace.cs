@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.SqlServer.Server;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace Vestillo.IDFace
         {
             try
             {
-                IncluirUsuario(usuario, "");
+                IncluirUsuario(usuario, "","");
             }
             catch (Exception ex)
             {
@@ -72,22 +73,23 @@ namespace Vestillo.IDFace
         {
             try
             {
-                var data = new Data
-                {
-                    Actions = new List<Action>
-                {
-                    new Action
+
+               
+                var Result = new Result();
+                Result.Event = 7;
+                Result.user_id = 0;
+                Result.user_name = "Portaria";
+                Result.message = "Entrada Liberada";
+                Result.portal_id = 1;
+                Result.actions = new List<Entidade.Action>();
+                Result.actions.Add(new Entidade.Action()
                 {
                     ActionName = "sec_box",
-                    Parameters = "id=65793, reason=3"
-                }
-                     }
-                };
-
-                // Serializar o objeto em uma string JSON
-                string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
-
-                device.sendJson("execute_actions", jsonString);
+                    Parameters = "id=65793, reason=1"
+                });
+                string jsonString = JsonConvert.SerializeObject(Result); 
+                
+                device.sendJson("remote_user_authorization", jsonString);
 
             }
             catch (Exception ex)
@@ -99,7 +101,7 @@ namespace Vestillo.IDFace
 
 
 
-        public void IncluirUsuario(Usuario usuario, string servidor)
+        public void IncluirUsuario(Usuario usuario, string servidor, string servidorAPI)
         {
             try
             {
@@ -108,7 +110,7 @@ namespace Vestillo.IDFace
 
 
                 if (!string.IsNullOrEmpty(servidor))
-                    IOConfiguracao.SalvarArquivo(servidor);
+                    IOConfiguracao.SalvarArquivo(servidor, servidorAPI);
 
                 if (!IsUsuarioExiste(usuario))
                 {
@@ -134,10 +136,10 @@ namespace Vestillo.IDFace
 
         public void AlterarUsuario(Usuario usuario)
         {
-            AlterarUsuario(usuario, "");
+            AlterarUsuario(usuario, "", "" );
         }
 
-        public void AlterarUsuario(Usuario usuario, string servidor)
+        public void AlterarUsuario(Usuario usuario, string servidor, string servidorAPI)
         {
             try
             {
@@ -146,7 +148,7 @@ namespace Vestillo.IDFace
 
 
                 if (!string.IsNullOrEmpty(servidor))
-                    IOConfiguracao.SalvarArquivo(servidor);
+                    IOConfiguracao.SalvarArquivo(servidor, servidorAPI);
 
                 AlterarUsuarioJson(usuario);
 
