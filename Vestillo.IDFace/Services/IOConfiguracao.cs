@@ -52,12 +52,12 @@ namespace Vestillo.IDFace.Services
           
         }
 
-        public void SalvarArquivo(string  servidor, string apiServidor)
+        public void SalvarArquivo(string  ipdoaparelho, string apiServidor)
         {
 
             var configuracao = new Configuracao 
             {
-                Servidor = servidor,
+                Servidor = ipdoaparelho,
                  ComputadorAPI =apiServidor
             };
 

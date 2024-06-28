@@ -55,7 +55,7 @@ namespace Vestillo.IDFace.App
         {
             try
             {
-                var configuracao = new Entidade.Configuracao();
+                var configuracao = new Configuracao();
                 var IOConfiguracao = new Services.IOConfiguracao();
                 configuracao.Servidor = txtTerminal.Text;
                 configuracao.ComputadorAPI = txtIPOndeTaAPI.Text;
