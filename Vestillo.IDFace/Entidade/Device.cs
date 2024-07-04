@@ -265,7 +265,7 @@ namespace Vestillo.IDFace.Entidade
             }
         }
 
-        public byte[] getImagemUsuario(string uri, string id, bool checkLogin = true)
+        public byte[] getImagemUsuario(string uri, int id, bool checkLogin = true)
         {
             byte[] responseBody = null;
             if (checkLogin)

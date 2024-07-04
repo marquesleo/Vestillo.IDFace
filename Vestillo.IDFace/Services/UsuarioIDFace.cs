@@ -3,6 +3,7 @@ using Microsoft.SqlServer.Server;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Vestillo.IDFace.Entidade;
 using Vestillo.IDFace.Services;
 
@@ -28,29 +29,18 @@ namespace Vestillo.IDFace
             }
         }
 
-        private void ValidarUsuario(Usuario usuario)
+        private void ValidarUsuario(Usuario usuario, ref string msgErro)
         {
-            if (string.IsNullOrEmpty(usuario.Id))
-                throw new Exception("Id do usuário deve ser preenchido");
+            var lstErro = new StringBuilder();
+            if (usuario.Id==0)
+                lstErro.AppendLine("Id do usuário deve ser preenchido");
 
             if (string.IsNullOrEmpty(usuario.Name))
-                throw new Exception("Nome do usuário deve ser preenchido");
+                lstErro.AppendLine("Nome do usuário deve ser preenchido");
+
+
+            msgErro = lstErro.ToString();   
         }
-
-
-        public void IncluirUsuario(Usuario usuario)
-        {
-            try
-            {
-                IncluirUsuario(usuario, "","");
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
 
         public class Action
         {
@@ -101,16 +91,11 @@ namespace Vestillo.IDFace
 
 
 
-        public void IncluirUsuario(Usuario usuario, string servidor, string servidorAPI)
+        public void IncluirUsuario(Usuario usuario, ref string msgErro)
         {
             try
             {
-                ValidarUsuario(usuario);
-                var IOConfiguracao = new IOConfiguracao();
-
-
-                if (!string.IsNullOrEmpty(servidor))
-                    IOConfiguracao.SalvarArquivo(servidor, servidorAPI);
+                ValidarUsuario(usuario, ref msgErro);
 
                 if (!IsUsuarioExiste(usuario))
                 {
@@ -125,7 +110,13 @@ namespace Vestillo.IDFace
                     }
                 }
                 else
-                    throw new Exception("Usuário já cadastrado!");
+                {
+                    if (!string.IsNullOrEmpty(msgErro))
+                    {
+                        msgErro += "\r";
+                    }
+                    msgErro += "Usuário já cadastrado!";
+                }
             }
             catch (Exception ex)
             {
