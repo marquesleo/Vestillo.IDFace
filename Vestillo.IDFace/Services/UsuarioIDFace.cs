@@ -32,7 +32,7 @@ namespace Vestillo.IDFace
         private void ValidarUsuario(Usuario usuario, ref string msgErro)
         {
             var lstErro = new StringBuilder();
-            if (usuario.Id==0)
+            if (usuario.Id == 0)
                 lstErro.AppendLine("Id do usuário deve ser preenchido");
 
             if (string.IsNullOrEmpty(usuario.Name))
@@ -91,8 +91,9 @@ namespace Vestillo.IDFace
 
 
 
-        public void IncluirUsuario(Usuario usuario, ref string msgErro)
+        public bool IncluirUsuario(Usuario usuario, ref string msgErro)
         {
+            bool retorno = false;
             try
             {
                 ValidarUsuario(usuario, ref msgErro);
@@ -108,6 +109,7 @@ namespace Vestillo.IDFace
 
                         device.sendImagemUsuario("user_set_image", usuario, true);
                     }
+                    retorno = true;
                 }
                 else
                 {
@@ -123,32 +125,26 @@ namespace Vestillo.IDFace
 
                 throw ex;
             }
+            return retorno;
         }
 
-        public void AlterarUsuario(Usuario usuario)
-        {
-            AlterarUsuario(usuario, "", "" );
-        }
+       
 
-        public void AlterarUsuario(Usuario usuario, string servidor, string servidorAPI)
+        public bool AlterarUsuario(Usuario usuario, ref string msgErro)
         {
+            bool retorno = false;
             try
             {
-                ValidarUsuario(usuario);
-                var IOConfiguracao = new IOConfiguracao();
-
-
-                if (!string.IsNullOrEmpty(servidor))
-                    IOConfiguracao.SalvarArquivo(servidor, servidorAPI);
-
+                ValidarUsuario(usuario, ref msgErro);
+              
                 AlterarUsuarioJson(usuario);
-
 
                 if (usuario.Imagem != null || !string.IsNullOrEmpty(usuario.DiretorioImagem))
                 {
 
                     device.sendImagemUsuario("user_set_image", usuario, true);
                 }
+                retorno = true;
 
             }
             catch (Exception ex)
@@ -156,6 +152,7 @@ namespace Vestillo.IDFace
 
                 throw ex;
             }
+            return retorno;
         }
 
         public void ExcluirUsuario(Usuario usuario)
@@ -235,9 +232,9 @@ namespace Vestillo.IDFace
 
                     if (reg.ContainsKey("id"))
                     {
-                        var id = "";
+                        string id = "";
                         reg.TryGetValue("id", out id);
-                        usuario.Id = id;
+                        usuario.Id = Convert.ToInt32(id);
 
                     }
                     if (reg.ContainsKey("name"))

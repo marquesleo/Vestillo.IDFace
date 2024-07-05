@@ -101,7 +101,7 @@ namespace Vestillo.IDFace.App
                 {
                     var usuarioIDFace = new UsuarioIDFace();
                     var usuario = lst[grdusuario.GetDataSourceRowIndex(grdusuario.FocusedRowHandle)];
-                    txtId.Text = usuario.Id;
+                    txtId.Text = usuario.Id.ToString();
                     txtUser.Text = usuario.Name;
                     txtMatricula.Text = usuario.Matricula;
                     var vet = usuarioIDFace.GetImagemUsuario(usuario);
@@ -148,17 +148,24 @@ namespace Vestillo.IDFace.App
             {
                 var usuario = new Usuario();
                 var usuarioIDFace = new UsuarioIDFace();
-                usuario.Id = txtId.Text;
+                usuario.Id = Convert.ToInt32(txtId.Text);
                 usuario.Name = txtUser.Text;
                 usuario.Matricula = txtMatricula.Text;
                 if (picCamImagem.Image != null)
                 {
                     usuario.Imagem = ImageToByteArray(picCamImagem.Image);
                 }
-
-                usuarioIDFace.AlterarUsuario(usuario, "", "");
-                MessageBox.Show("Usuário alterado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Close();
+                string erro = string.Empty;
+                if (usuarioIDFace.AlterarUsuario(usuario, ref erro))
+                {
+                    MessageBox.Show("Usuário alterado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show(erro, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
             catch (Exception ex)
             {

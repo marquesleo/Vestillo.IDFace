@@ -100,17 +100,24 @@ namespace Vestillo.IDFace.App
             {
                 var usuario = new Usuario();
                 var usuarioIDFace = new UsuarioIDFace();
-                usuario.Id = txtId.Text;
+                usuario.Id = Convert.ToInt32(txtId.Text);
                 usuario.Name = txtUser.Text;
                 usuario.Matricula = txtMatricula.Text;
                 if (picImagemRecortada.Image != null)
                 {
                     usuario.Imagem = ImageToByteArray(picImagemRecortada.Image);
                 }
-
-                usuarioIDFace.IncluirUsuario(usuario);
-                MessageBox.Show("Usuário cadastrado!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LimparTela();
+                string erro = string.Empty;
+                if (usuarioIDFace.IncluirUsuario(usuario,ref erro))
+                {
+                    MessageBox.Show("Usuário cadastrado!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimparTela();
+                }else
+                {
+                    MessageBox.Show(erro, "Inclusão",  MessageBoxButtons.OK,  MessageBoxIcon.Error);
+                }
+               
+              
             }
             catch (Exception ex)
             {
