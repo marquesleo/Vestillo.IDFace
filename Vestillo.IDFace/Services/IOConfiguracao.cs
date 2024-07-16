@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Configuration;
+using System.IO;
 using System.Xml.Serialization;
 using Vestillo.IDFace.Entidade;
 
@@ -29,16 +30,17 @@ namespace Vestillo.IDFace.Services
         }
 
 
-        private const string filePath = "configuracao.xml";
+        private const string filePath =  "configuracao.xml";
         private void SalvarArquivo(Configuracao configuracao)
         {
             try
             {
+                var diretorio = ConfigurationSettings.AppSettings["diretorio"];
 
-                if (!File.Exists(filePath))
+                if (!File.Exists(diretorio + "\\" + filePath))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(Configuracao));
-                    using (StreamWriter writer = new StreamWriter(filePath))
+                    using (StreamWriter writer = new StreamWriter(diretorio + "\\" + filePath))
                     {
                         serializer.Serialize(writer, configuracao);
                     }
@@ -80,10 +82,10 @@ namespace Vestillo.IDFace.Services
         {
             Configuracao config = null;
             XmlSerializer serializer = new XmlSerializer(typeof(Configuracao));
-
-            if (File.Exists(filePath))
+            var diretorio = ConfigurationSettings.AppSettings["diretorio"];
+            if (File.Exists(diretorio + "\\" + filePath))
             {
-                using (StreamReader reader = new StreamReader(filePath))
+                using (StreamReader reader = new StreamReader(diretorio + "\\" + filePath))
                 {
                     config = (Configuracao)serializer.Deserialize(reader);
 

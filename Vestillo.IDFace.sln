@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vestillo.IDFace", "Vestillo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vestillo.IDFace.App", "Vestillo.IDFace.App\Vestillo.IDFace.App.csproj", "{175D0B9F-730F-49B9-B638-E341DE165A76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vestillo.IDFace.Service", "Vestillo.IDFace.Service\Vestillo.IDFace.Service.csproj", "{D77E418B-02B4-454C-A64E-DAE02AF66C3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{175D0B9F-730F-49B9-B638-E341DE165A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{175D0B9F-730F-49B9-B638-E341DE165A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{175D0B9F-730F-49B9-B638-E341DE165A76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D77E418B-02B4-454C-A64E-DAE02AF66C3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77E418B-02B4-454C-A64E-DAE02AF66C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77E418B-02B4-454C-A64E-DAE02AF66C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77E418B-02B4-454C-A64E-DAE02AF66C3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,7 @@ using Vestillo.IDFace.Entidade.Biometric;
 
 namespace Vestillo.IDFace.Entidade
 {
-    class Server : IServer
+    public class Server : IServer
     {
         BiometricResult get = new BiometricResult();
 
