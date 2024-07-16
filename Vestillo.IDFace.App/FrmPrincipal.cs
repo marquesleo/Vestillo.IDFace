@@ -168,7 +168,11 @@ namespace Vestillo.IDFace.App
                     _device = new Device();
                     var IOConfiguracao = new Services.IOConfiguracao();
                     var conectIDFace = new ConectaIDFace();
-                    _device = conectIDFace.IniciarConexao(IOConfiguracao.GetIPTerminal());
+                    var config = IOConfiguracao.GetIPTerminal();
+                    _device = conectIDFace.IniciarConexao(config.Servidor,
+                                                          config.ComputadorAPI,
+                                                          false);
+
                     _device = new Device(new Util().GetIpTerminal(), new Util().GetIpServer());
                 }
 

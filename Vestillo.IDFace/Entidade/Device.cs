@@ -5,11 +5,8 @@ using System.ServiceModel.Description;
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Net.Http.Headers;
 using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text;
 
 namespace Vestillo.IDFace.Entidade
 {
@@ -31,7 +28,7 @@ namespace Vestillo.IDFace.Entidade
             ServerIp = IPServer;
         }
 
-        public string[] CadastrarNoSevidor(out bool success)
+        public string[] CadastrarNoSevidor(out bool success, bool configurarAPI = true)
         {
             List<string> response = new List<string>();
             response.Add("Cadastrando Servidor no equipamento.\r\n");
@@ -100,28 +97,31 @@ namespace Vestillo.IDFace.Entidade
                 return response.ToArray();
             }
 
-            //Inicia o monitoramento de identificações do equipamento
-            try
-            {
-                // basic wcf web http service
-                var binding = new WebHttpBinding();
-                binding.MaxReceivedMessageSize = 2147483647;
-                binding.MaxBufferSize = 2147483647;
-                binding.MaxBufferPoolSize = 2147483647;
+            if (configurarAPI) //Inicia o monitoramento de identificações do equipamento
 
-                WebServiceHost host = new WebServiceHost(typeof(Server), new Uri("http://"+ ServerIp +"/api"));
-                ServiceEndpoint ep = host.AddServiceEndpoint(typeof(IServer), binding, "");
-                ServiceDebugBehavior sdb = host.Description.Behaviors.Find<ServiceDebugBehavior>();
-                sdb.HttpHelpPageEnabled = false;
-                host.Open();
-                response.Add("Servidor iniciado no IP " + ServerIp + ", verifique se o firewall está liberado na porta 8000");
-            }
-            catch (Exception ex)
             {
-                success = false;
-                response.Add("Erro ao monitorar identificações:");
-                response.Add("  - " + ex.Message + "\r\n");
-                return response.ToArray();
+                try
+                {
+                    // basic wcf web http service
+                    var binding = new WebHttpBinding();
+                    binding.MaxReceivedMessageSize = 2147483647;
+                    binding.MaxBufferSize = 2147483647;
+                    binding.MaxBufferPoolSize = 2147483647;
+
+                    WebServiceHost host = new WebServiceHost(typeof(Server), new Uri("http://" + ServerIp + "/api"));
+                    ServiceEndpoint ep = host.AddServiceEndpoint(typeof(IServer), binding, "");
+                    ServiceDebugBehavior sdb = host.Description.Behaviors.Find<ServiceDebugBehavior>();
+                    sdb.HttpHelpPageEnabled = false;
+                    host.Open();
+                    response.Add("Servidor iniciado no IP " + ServerIp + ", verifique se o firewall está liberado na porta 8000");
+                }
+                catch (Exception ex)
+                {
+                    success = false;
+                    response.Add("Erro ao monitorar identificações:");
+                    response.Add("  - " + ex.Message + "\r\n");
+                    return response.ToArray();
+                }
             }
 
             return response.ToArray();

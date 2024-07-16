@@ -40,7 +40,7 @@ namespace Vestillo.IDFace
            
         }
 
-        public Device IniciarConexao(string ip_terminal,string ipAPI)
+        public Device IniciarConexao(string ip_terminal,string ipAPI, bool configurarAPI=true)
         {
             Device device = null;
 
@@ -50,7 +50,7 @@ namespace Vestillo.IDFace
 
                 device = new Device(ip_terminal, ipAPI);
                 bool success = true;
-                var retorno = device.CadastrarNoSevidor(out success);
+                var retorno = device.CadastrarNoSevidor(out success,configurarAPI);
                 return device;
             }
             catch (Exception ex)
