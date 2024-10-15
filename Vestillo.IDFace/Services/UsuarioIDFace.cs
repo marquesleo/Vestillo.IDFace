@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.SqlServer.Server;
 using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -67,8 +68,9 @@ namespace Vestillo.IDFace
         {
             try
             {
+                LoggerInitializer.ConfigureLogger();
+                Log.Information("Iniciando liberacao de acesso");
 
-               
                 var Result = new Result();
                 Result.Event = 7;
                 Result.user_id = 0;
@@ -81,14 +83,21 @@ namespace Vestillo.IDFace
                     ActionName = "sec_box",
                     Parameters = "id=65793, reason=1"
                 });
-                string jsonString = JsonConvert.SerializeObject(Result); 
-                
+                Log.Information("Iniciando serializacao do objeto result");
+
+                string jsonString = JsonConvert.SerializeObject(Result);
+
+                Log.Information("Objeto result serializado :" + jsonString);
+
                 device.sendJson("remote_user_authorization", jsonString);
+
+
+                Log.Information("comando para liberar porta feito !!!");
 
             }
             catch (Exception ex)
             {
-
+                Log.Information("erro " + ex.Message);
                 throw ex;
             }
         }

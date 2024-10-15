@@ -7,6 +7,7 @@ using System.Net;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Net.Http;
+using Serilog;
 
 namespace Vestillo.IDFace.Entidade
 {
@@ -329,9 +330,13 @@ namespace Vestillo.IDFace.Entidade
 
         public string sendJson(string uri, string data, bool checkLogin = true)
         {
+
+          
             if (checkLogin)
             {
+                Log.Information("check login");
                 Login();
+                Log.Information("login feito");
                 uri += ".fcgi?session=" + session;
             }
             else
@@ -358,6 +363,8 @@ namespace Vestillo.IDFace.Entidade
             }
             catch (WebException e)
             {
+
+                Log.Information("erro na comunicacao com api " + e.Message);
                 using (WebResponse response = e.Response)
                 {
                     HttpWebResponse httpResponse = (HttpWebResponse)response;
